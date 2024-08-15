@@ -9,6 +9,9 @@ class Url:
 class PageInfo:
     header = By.XPATH, "//div[@id='content']//h2"
     sub_header = By.CLASS_NAME, "subheader"
+    toast = By.ID, "flash"
+    header = By.TAG_NAME, "h2"
+    sub_header = By.CLASS_NAME, "subheader"
 
 
 class Interactor:
@@ -20,7 +23,4 @@ class Interactor:
 
 
 class PostSuccess:
-    toast = By.ID, "flash"
-    header = By.TAG_NAME, "h2"
-    sub_header = By.CLASS_NAME, "subheader"
     logout_btn = By.CSS_SELECTOR, ".button.secondary.radius"

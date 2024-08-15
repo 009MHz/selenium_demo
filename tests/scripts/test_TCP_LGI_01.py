@@ -11,7 +11,7 @@ class TestSuccessLogin:
     @pytest.mark.ui
     @pytest.mark.positive
     @allure.title("Successful Login with Correct Credentials")
-    @allure.id("TCP_LGI_01")
+    @allure.id("TCP-LGI-01")
     def test_TCP_LGI_01(self, driver):
         login = LoginPageFunction(driver)
         with allure.step("1. Navigate the login page URL"):

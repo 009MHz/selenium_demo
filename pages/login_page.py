@@ -62,20 +62,20 @@ class LoginPageFunction(Base):
         assert keyword in self._driver.current_url, f"❌ URL does not contain '{keyword}' after login"
 
     def success_toast_message_contains(self, keyword):
-        super()._view(PostSuccess.toast)
-        toast_message = self._find(PostSuccess.toast).text
-        assert self._find(PostSuccess.toast).is_displayed(), "❌ Success toast is not displayed"
+        super()._view(PageInfo.toast)
+        toast_message = self._find(PageInfo.toast).text
+        assert self._find(PageInfo.toast).is_displayed(), "❌ Success toast is not displayed"
         assert keyword in toast_message, f"❌ Success toast message does not contain '{keyword}'"
 
     def success_page_title_availability(self):
-        super()._view(PostSuccess.header)
-        header_element = self._find(PostSuccess.header)
+        super()._view(PageInfo.header)
+        header_element = self._find(PageInfo.header)
         assert header_element.is_displayed(), "❌ Success page title is not displayed"
         assert header_element.text == "Secure Area", "❌ Success page title does not match 'Secure Area'"
 
     def success_page_info_availability(self):
-        super()._view(PostSuccess.sub_header)
-        info_page = self._find(PostSuccess.sub_header)
+        super()._view(PageInfo.sub_header)
+        info_page = self._find(PageInfo.sub_header)
         assert info_page.is_displayed(), "❌ Success login sub header is not displayed"
         assert "When you are done" in info_page.text, "❌ Success login sub header does not contain the correct text"
 
@@ -83,5 +83,11 @@ class LoginPageFunction(Base):
         super()._touch(PostSuccess.logout_btn)
         logout = self._find(PostSuccess.logout_btn)
         assert logout.is_enabled(), "❌ The Logout button is not accessible"
-        assert "Logout" == logout.text, "❌ The Logout button is not contains the correct texta"
+        assert "Logout" == logout.text, "❌ The Logout button is not contains the correct text"
+
+    def fail_toast_message_contains(self, keyword):
+        super()._view(PageInfo.toast)
+        toast_message = self._find(PageInfo.toast).text
+        assert self._find(PageInfo.toast).is_displayed(), "❌ Username fail toast message is not displayed"
+        assert keyword in toast_message, f"❌ Fail toast message does not match with '{keyword}'"
 

@@ -16,6 +16,7 @@ class TestSuccessLogin:
         login = LoginPageFunction(driver)
         with allure.step("1. Navigate the login page URL"):
             login.open_page()
+
         with allure.step("2. Validate the Login Page Component"):
             login.url_contain_keyword("login")
             login.page_title_match("Login Page")
@@ -25,14 +26,19 @@ class TestSuccessLogin:
             login.name_field_label_match("Username")
             login.password_field_label_match("Password")
             login.login_button_availability()
+
         with allure.step("3. Insert Valid username on the respective field "):
             login.username_insert("tomsmith")
+
         with allure.step("4. Insert Valid password on the respective field "):
             login.password_insert("SuperSecretPassword!")
+
         with allure.step("5. Click on the Login Button"):
             login.click_login_button()
+
         with allure.step("6. Validate the Success Login Redirection"):
             login.url_post_success_contain("/secure")
+
         with allure.step("7. Validate the Success Login Page"):
             login.url_post_success_contain("/secure")
             login.success_toast_message_contains("You logged into")

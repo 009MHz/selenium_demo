@@ -19,7 +19,7 @@ def pytest_addoption(parser):
         pipeline: Run tests in Gitlab CI.
     """
     parser.addoption('--env', action='store', default='test', help='')
-    parser.addoption('--browser', help='', default='chrome-headless')
+    parser.addoption('--browser', help='', default='chrome')
     parser.addoption('--execution_type', help='', default='local')
 
 
@@ -29,6 +29,7 @@ def pytest_configure(config):
     os.environ["execution_type"] = config.getoption('execution_type') or 'local'
 
 
+@pytest.fixture()
 def driver():
     browser = os.getenv("browser")
     execution_type = os.getenv("execution_type")

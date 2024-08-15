@@ -42,6 +42,7 @@ class TestFailedLogin:
             login.click_login_button()
 
         with allure.step("6. Validate the Invalid Username toast"):
+            # Todo: Add Username fail toast validation
             pass
 
     @pytest.mark.ui
@@ -69,6 +70,7 @@ class TestFailedLogin:
             login.click_login_button()
 
         with allure.step("6. Validate the Invalid Username toast"):
+            # Todo: Add Password fail toast validation
             pass
 
     @pytest.mark.ui
@@ -90,4 +92,5 @@ class TestFailedLogin:
             login.click_login_button()
 
         with allure.step("4. Validate the Invalid Username toast"):
+            # Todo: Add Empty field fail toast validation
             pass

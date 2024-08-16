@@ -14,31 +14,31 @@ def login(driver):
 @allure.epic("Login")
 @allure.story("Login/ Success Login")
 @allure.testcase("https://the-internet.herokuapp.com/login", "Positive Login")
-@allure.tag("Login")
+@allure.tag("Login", "Valid")
 class TestSuccessLogin:
     @pytest.mark.ui
     @pytest.mark.positive
-    @allure.title("Username input is not masked by dot")
-    @allure.tag("masking", "username")
-    @allure.id("TCP-LGI-01")
-    def test_password_masking_TCP_LGI_01(self, login):
-        with allure.step("3. Insert Any character in the username input field "):
-            login.username_insert("T|-|!s I5 Sp#ci@l TeXt UserN@m3")
-
-        with allure.step("4. Validate the masked character by check the input type"):
-            login.name_input_unmasked()
-
-    @pytest.mark.ui
-    @pytest.mark.positive
     @allure.title("User password is masked by dot")
-    @allure.tag("masking", "password")
-    @allure.id("TCP-LGI-02")
-    def test_password_masking_TCP_LGI_02(self, login):
+    @allure.tag("Masking", "Password")
+    @allure.id("TCP-LGI-01")
+    def test_username_unmasked_TCP_LGI_01(self, login):
         with allure.step("3. Insert Any character in the password input field "):
             login.password_insert("T|-|!s I5 Sp#ci@l TeXt P4sSw012D")
 
         with allure.step("4. Validate the masked character by check the input type"):
             login.password_input_masked()
+
+    @pytest.mark.ui
+    @pytest.mark.positive
+    @allure.title("Username input is not masked by dot")
+    @allure.tag("Masking", "Username")
+    @allure.id("TCP-LGI-02")
+    def test_password_masking_TCP_LGI_02(self, login):
+        with allure.step("3. Insert Any character in the username input field "):
+            login.username_insert("T|-|!s I5 Sp#ci@l TeXt UserN@m3")
+
+        with allure.step("4. Validate the masked character by check the input type"):
+            login.name_input_unmasked()
 
     @pytest.mark.ui
     @pytest.mark.positive

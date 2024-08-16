@@ -7,17 +7,7 @@ import allure
 def login(driver):
     login_page = LoginPageFunction(driver)
     login_page.open_page()
-    with allure.step("1. Navigate the login page URL"):
-        login_page.open_page()
-    with allure.step("2. Validate the Login Page Component"):
-        login_page.url_contain_keyword("login")
-        login_page.page_title_match("Login Page")
-        login_page.page_info_contains("log into the secure area")
-        login_page.pass_input_availability()
-        login_page.name_input_availability()
-        login_page.name_field_label_match("Username")
-        login_page.password_field_label_match("Password")
-        login_page.login_button_availability()
+    login_page.pre_action_initiate()
     return login_page
 
 
@@ -53,13 +43,13 @@ class TestSuccessLogin:
     @pytest.mark.ui
     @pytest.mark.positive
     @allure.title("Successful Login with Correct Credentials")
-    @allure.tag("password", "username", "success login")
+    @allure.tag("Success login")
     @allure.id("TCP-LGI-03")
     def test_success_login_TCP_LGI_03(self, login):
-        with allure.step("3. Insert Valid username on the respective field "):
+        with allure.step("3. Insert Valid username on the respective field"):
             login.username_insert("tomsmith")
 
-        with allure.step("4. Insert Valid password on the respective field "):
+        with allure.step("4. Insert Valid password on the respective field"):
             login.password_insert("SuperSecretPassword!")
 
         with allure.step("5. Click on the Login Button"):

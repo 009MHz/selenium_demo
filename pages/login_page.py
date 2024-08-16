@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from pages.__base import Base
 from elements.login_locators import *
@@ -12,10 +13,10 @@ class LoginPageFunction(Base):
         self._driver.get(Url.login)
 
     def username_insert(self, name: str):
-        self._type(Interactor.email_input, name)
+        self._type(Interactor.username_input, name)
 
     def password_insert(self, password: str):
-        self._type(Interactor.pass_input, password)
+        self._type(Interactor.password_input, password)
 
     def click_login_button(self):
         self._click(Interactor.login_btn)
@@ -36,22 +37,30 @@ class LoginPageFunction(Base):
         assert keyword in text_info, f"❌ Page info does not contain '{keyword}'"
 
     def name_field_label_match(self, expected_label: str):
-        super()._view(Interactor.email_label)
-        label_name = self._find(Interactor.email_label).text
+        super()._view(Interactor.username_label)
+        label_name = self._find(Interactor.username_label).text
         assert expected_label == label_name, f"❌ Name label does not match '{expected_label}'"
 
     def name_input_availability(self):
-        super()._touch(Interactor.email_input)
-        assert self._find(Interactor.email_input).is_enabled(), "❌ Username input field is not enabled"
+        super()._touch(Interactor.username_input)
+        assert self._find(Interactor.username_input).is_enabled(), "❌ Username input field is not enabled"
+
+    def name_input_unmasked(self):
+        super()._touch(Interactor.username_input)
+        assert self._find(Interactor.username_input).get_attribute("type") == "text", "❌ Username field is masked"
 
     def password_field_label_match(self, expected_label: str):
-        super()._view(Interactor.pass_label)
-        label_name = self._find(Interactor.pass_label).text
+        super()._view(Interactor.password_label)
+        label_name = self._find(Interactor.password_label).text
         assert expected_label == label_name, f"❌ Password label does not match '{expected_label}'"
 
     def pass_input_availability(self):
-        super()._touch(Interactor.pass_input)
-        assert self._find(Interactor.pass_input).is_enabled(), "❌ Password input field is not enabled"
+        super()._touch(Interactor.password_input)
+        assert self._find(Interactor.password_input).is_enabled(), "❌ Password input field is not enabled"
+
+    def password_input_masked(self):
+        super()._touch(Interactor.password_input)
+        assert self._find(Interactor.password_input).get_attribute("type") == "password", "❌ User Password is unmasked"
 
     def login_button_availability(self):
         super()._view(Interactor.login_btn)
@@ -91,3 +100,15 @@ class LoginPageFunction(Base):
         assert self._find(PageInfo.toast).is_displayed(), "❌ Username fail toast message is not displayed"
         assert keyword in toast_message, f"❌ Fail toast message does not match with '{keyword}'"
 
+    def pre_action_initiate(self):
+        with allure.step("1. Navigate the login page URL"):
+            self.open_page()
+        with allure.step("2. Validate the Login Page Component"):
+            self.url_contain_keyword("login")
+            self.page_title_match("Login Page")
+            self.page_info_contains("log into the secure area")
+            self.pass_input_availability()
+            self.name_input_availability()
+            self.name_field_label_match("Username")
+            self.password_field_label_match("Password")
+            self.login_button_availability()

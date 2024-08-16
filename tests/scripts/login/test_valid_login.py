@@ -22,10 +22,10 @@ class TestSuccessLogin:
     @allure.tag("Masking", "Password")
     @allure.id("TCP-LGI-01")
     def test_username_unmasked_TCP_LGI_01(self, login):
-        with allure.step("3. Insert Any character in the password input field "):
+        with allure.step("1. Insert Any character in the password input field "):
             login.password_insert("T|-|!s I5 Sp#ci@l TeXt P4sSw012D")
 
-        with allure.step("4. Validate the masked character by check the input type"):
+        with allure.step("2. Validate the masked character by check the input type"):
             login.password_input_masked()
 
     @pytest.mark.ui
@@ -34,10 +34,10 @@ class TestSuccessLogin:
     @allure.tag("Masking", "Username")
     @allure.id("TCP-LGI-02")
     def test_password_masking_TCP_LGI_02(self, login):
-        with allure.step("3. Insert Any character in the username input field "):
+        with allure.step("1. Insert Any character in the username input field "):
             login.username_insert("T|-|!s I5 Sp#ci@l TeXt UserN@m3")
 
-        with allure.step("4. Validate the masked character by check the input type"):
+        with allure.step("2. Validate the masked character by check the input type"):
             login.name_input_unmasked()
 
     @pytest.mark.ui
@@ -46,19 +46,19 @@ class TestSuccessLogin:
     @allure.tag("Success login")
     @allure.id("TCP-LGI-03")
     def test_success_login_TCP_LGI_03(self, login):
-        with allure.step("3. Insert Valid username on the respective field"):
+        with allure.step("1. Insert Valid username on the respective field"):
             login.username_insert("tomsmith")
 
-        with allure.step("4. Insert Valid password on the respective field"):
+        with allure.step("2. Insert Valid password on the respective field"):
             login.password_insert("SuperSecretPassword!")
 
-        with allure.step("5. Click on the Login Button"):
+        with allure.step("3. Click on the Login Button"):
             login.click_login_button()
 
-        with allure.step("6. Validate the Success Login Redirection"):
+        with allure.step("4. Validate the Success Login Redirection"):
             login.url_post_success_contain("/secure")
 
-        with allure.step("7. Validate the Success Login Page"):
+        with allure.step("5. Validate the Success Login Page"):
             login.url_post_success_contain("/secure")
             login.success_toast_message_contains("You logged into")
             login.success_page_title_availability()

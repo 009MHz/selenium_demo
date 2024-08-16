@@ -22,16 +22,16 @@ class TestFailedLogin:
     @allure.tag("Username")
     @allure.id("TCP-NGI-01")
     def test_invalid_username_TCP_NGI_01(self, login):
-        with allure.step("3. Insert Invalid Username"):
+        with allure.step("1. Insert Invalid Username"):
             login.username_insert("invalid_username")
 
-        with allure.step("4. Insert Valid Password"):
+        with allure.step("2. Insert Valid Password"):
             login.password_insert("SuperSecretPassword!")
 
-        with allure.step("5. Click on the Login Button"):
+        with allure.step("3. Click on the Login Button"):
             login.click_login_button()
 
-        with allure.step("6. Validate the Invalid Username State"):
+        with allure.step("4. Validate the Invalid Username State"):
             login.url_contain_keyword('/login')
             login.fail_toast_message_contains('username is invalid!')
 
@@ -41,16 +41,16 @@ class TestFailedLogin:
     @allure.tag("Password")
     @allure.id("TCP-NGI-02")
     def test_invalid_password_TCP_NGI_02(self, login):
-        with allure.step("3. Insert Valid Username"):
+        with allure.step("1.Insert Valid Username"):
             login.username_insert("tomsmith")
 
-        with allure.step("4. Insert Invalid Password"):
+        with allure.step("2. Insert Invalid Password"):
             login.password_insert("invalid_password")
 
-        with allure.step("5. Click on the Login Button"):
+        with allure.step("3. Click on the Login Button"):
             login.click_login_button()
 
-        with allure.step("6. Validate the Invalid Username toast"):
+        with allure.step("4. Validate the Invalid Username toast"):
             login.url_contain_keyword('/login')
             login.fail_toast_message_contains('password is invalid!')
 
@@ -60,16 +60,16 @@ class TestFailedLogin:
     @allure.tag("Password")
     @allure.id("TCP-NGI-03")
     def test_invalid_credential_TCP_NGI_03(self, login):
-        with allure.step("3. Insert Invalid Password"):
+        with allure.step("1.Insert Invalid Password"):
             login.password_insert("invalid_username")
 
-        with allure.step("4. Insert Invalid Password"):
+        with allure.step("2.Insert Invalid Password"):
             login.password_insert("invalid_password")
 
-        with allure.step("5. Click on the Login Button"):
+        with allure.step("3.Click on the Login Button"):
             login.click_login_button()
 
-        with allure.step("6. Validate the Invalid toast"):
+        with allure.step("4.Validate the Invalid toast"):
             login.url_contain_keyword('/login')
             login.fail_toast_message_contains('username is invalid!')
 
@@ -79,9 +79,9 @@ class TestFailedLogin:
     @allure.tag("Username", "Password")
     @allure.id("TCP-NGI-04")
     def test_empty_credentials_TCP_NGI_03(self, login):
-        with allure.step("3. Click on the Login Button without input the credentials"):
+        with allure.step("1. Click on the Login Button without input the credentials"):
             login.click_login_button()
 
-        with allure.step("4. Validate the Invalid Username toast"):
+        with allure.step("2. Validate the Invalid Username toast"):
             login.url_contain_keyword('/login')
             login.fail_toast_message_contains('username is invalid!')

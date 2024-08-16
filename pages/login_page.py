@@ -101,9 +101,9 @@ class LoginPageFunction(Base):
         assert keyword in toast_message, f"❌ Fail toast message does not match with '{keyword}'"
 
     def pre_action_initiate(self):
-        with allure.step("1. Navigate the login page URL"):
+        with allure.step("▸ Navigate the login page URL"):
             self.open_page()
-        with allure.step("2. Validate the Login Page Component"):
+        with allure.step("▸ Validate the Login Page Component"):
             self.url_contain_keyword("login")
             self.page_title_match("Login Page")
             self.page_info_contains("log into the secure area")

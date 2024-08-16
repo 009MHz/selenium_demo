@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from pages.__base import Base
 from elements.uploader_locators import *
@@ -8,5 +9,52 @@ class Uploader(Base):
         super().__init__(driver)
 
     # Todo 1: Define uploader interaction
+    def open_page(self):
+        self._driver.get(Url.upload)
 
     # Todo 2: Define uploader action validation
+    def url_contain_keyword(self, keyword):
+        self._url_check(Url.upload)
+        self._url_check(Url.upload)
+        assert keyword in self._driver.current_url, f"❌ URL does not contain '{keyword}'"
+
+    def page_title_match(self, expected_title: str):
+        self._view(PageInfo.title)
+        text_header = self._find(PageInfo.title).text
+        assert expected_title == text_header, f"❌ Page title does not match '{expected_title}'"
+
+    def page_info_contains(self, keyword):
+        self._view(PageInfo.description)
+        text_info = self._find(PageInfo.description).text
+        assert keyword in text_info, f"❌ Page info does not contain '{keyword}'"
+
+    def select_file_availability(self):
+        self._view(FileUploader.select)
+        assert self._find(FileUploader.select).is_enabled(), "❌ 'Choose File' button is not accessible"
+
+    def submit_file_availability(self):
+        self._view(FileUploader.submit)
+        assert self._find(FileUploader.submit).is_enabled(), "❌ 'Upload' button is not accessible"
+
+    def dragging_box_availability(self):
+        self._view(FileUploader.drag)
+        assert self._find(FileUploader.drag).is_enabled(), "❌ Dragging box is not accessible"
+
+        file_preview = self._find(FileUploader.dragged_preview)
+        assert not file_preview.is_displayed(), "❌ The File Name preview should not be exist"
+
+        file_marker = self._find(FileUploader.dragged_mark)
+        assert not file_marker.is_displayed(), "❌ The File Name marker should not be exist"
+        
+    def pre_action_initiate(self):
+        with allure.step("▸ Navigate to the File Upload Page"):
+            self.open_page()
+        with allure.step("▸ Validate File Upload Page Components"):
+            self.url_contain_keyword('upload')
+            self.page_title_match('File Uploader')
+            self.page_info_contains('Choose a file')
+            self.page_info_contains('Or, drag and drop a file')
+            self.select_file_availability()
+            self.submit_file_availability()
+            self.dragging_box_availability()
+            

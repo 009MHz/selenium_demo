@@ -56,7 +56,7 @@ class TestFailedLogin:
 
     @pytest.mark.ui
     @pytest.mark.negative
-    @allure.title("Unsuccessful Login with Invalid Password")
+    @allure.title("Unsuccessful Login with Invalid Credentials")
     @allure.tag("Password")
     @allure.id("TCP-NGI-03")
     def test_invalid_credential_TCP_NGI_03(self, login):

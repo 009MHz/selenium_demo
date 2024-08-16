@@ -2,7 +2,7 @@
 
 ---
 
-**Test Case ID:** TCP_LGI_01  
+**Test Case ID:** TCP-LGI-01  
 **Test Scenario:** Username input is not masked by dot
 
 **Pre-conditions:**
@@ -18,7 +18,7 @@
 
 ---
 
-**Test Case ID:** TCP_LGI_02  
+**Test Case ID:** TCP-LGI-02  
 **Test Scenario:** Password Field Masking
 
 **Pre-conditions:**
@@ -34,7 +34,7 @@
 
 ---
 
-**Test Case ID:** TCP_LGI_03  
+**Test Case ID:** TCP-LGI-03  
 **Test Scenario:** Successful Login with Correct Credentials
 
 **Pre-conditions:**
@@ -53,7 +53,7 @@
 
 ---
 
-**Test Case ID:** TCN_LGI_01  
+**Test Case ID:** TCN-LGI-03  
 **Test Scenario:** Unsuccessful Login with Incorrect Credentials
 
 **Pre-conditions:**
@@ -72,7 +72,7 @@
 
 ---
 
-**Test Case ID:** TCN_LGI_02  
+**Test Case ID:** TCN-LGI-02  
 **Test Scenario:** Login with Empty Username
 
 **Pre-conditions:**
@@ -90,7 +90,7 @@
 
 ---
 
-**Test Case ID:** TCN_LGI_03  
+**Test Case ID:** TCN-LGI-03  
 **Test Scenario:** Login with Empty Password
 
 **Pre-conditions:**

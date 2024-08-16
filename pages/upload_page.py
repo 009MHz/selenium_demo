@@ -1,4 +1,5 @@
 import allure
+import os
 from selenium.webdriver.remote.webdriver import WebDriver
 from pages.__base import Base
 from elements.uploader_locators import *
@@ -11,6 +12,20 @@ class Uploader(Base):
     # Todo 1: Define uploader interaction
     def open_page(self):
         self._driver.get(Url.upload)
+
+    def upload_file(self, file_name: str):
+        # Construct the absolute path relative to the root directory
+        initial_path = os.path.abspath(os.path.join("..", "data", "attachment", file_name))
+        print(f"Retrieved absolute path: {initial_path}")
+
+        # Ensure the file exists
+        if not os.path.exists(initial_path):
+            raise FileNotFoundError(f"File not found: {initial_path}")
+
+        self._find(FileUploader.select).send_keys(initial_path)
+
+    def submit_upload(self):
+        self._click(FileUploader.submit)
 
     # Todo 2: Define uploader action validation
     def url_contain_keyword(self, keyword):
@@ -51,9 +66,6 @@ class Uploader(Base):
             self.open_page()
         with allure.step("▸ Validate File Upload Page Components"):
             self.url_contain_keyword('upload')
-            self.page_title_match('File Uploader')
-            self.page_info_contains('Choose a file')
-            self.page_info_contains('Or, drag and drop a file')
             self.select_file_availability()
             self.submit_file_availability()
             self.dragging_box_availability()

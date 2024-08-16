@@ -13,13 +13,14 @@ def uploader(driver):
 
 @allure.epic("Uploader")
 @allure.story("Upload")
-@allure.testcase("https://the-internet.herokuapp.com/upload", "TCP_FUP_01")
+@allure.testcase("https://the-internet.herokuapp.com/upload", "File Uploader Page")
 @allure.tag("Upload")
 class TestSuccessUpload:
     @pytest.mark.ui
     @pytest.mark.positive
     @allure.title("File Uploader Page contains the correct components")
     @allure.id("TCP-FUP-01")
+    @allure.tag("Initial Check")
     def test_uploader_page_components_TCP_FUP_01(self, driver):
         init = Uploader(driver)
         with allure.step("1. Navigate to the File Upload Page"):
@@ -36,3 +37,14 @@ class TestSuccessUpload:
             init.select_file_availability()
             init.submit_file_availability()
             init.dragging_box_availability()
+
+    @pytest.mark.ui
+    @pytest.mark.positive
+    @allure.title("")
+    @allure.id("TCP-FUP-02")
+    @allure.tag("")
+    def test_upload_file_TCP_FUP_02(self, uploader):
+        with allure.step("1. Insert the file name with the extension"):
+            uploader.upload_file('testFile.docx')
+        with allure.step("2. Click on the submit button"):
+            uploader.submit_upload()

@@ -1,4 +1,24 @@
-**Test Case ID:** TCP_FUP_01  
+**Test Case ID:** TCP-FUP-01  
+**Test Scenario:** File Uploader Page contains the correct components
+
+**Pre-conditions:**
+
+**Test Steps:**
+1. Navigate to the file uploader page
+2. Ensure upload file page contains proper information
+3. Ensure the file uploader components are exist and interactable
+
+**Expected Results:**
+- The page title displayed "File Uploader"
+- The page description is available and contains the proper information
+- The File Selector button is enabled and displayed as "Choose File"
+- The default filename state displayed as empty and written as "No file chosen"
+- The submit file button is enabled and displayed as "Upload"
+- The drag box section is displayed and contains the empty value 
+
+---
+
+**Test Case ID:** TCP-FUP-02  
 **Test Scenario:** Successful File Upload
 
 **Pre-conditions:**
@@ -13,12 +33,9 @@
 **Expected Results:**
 - The name of the uploaded file is displayed on the page.
 
-**Actual Results:**
-
-
 ---
 
-**Test Case ID:** TCN_FUP_02  
+**Test Case ID:** TCN-FUP-01  
 **Test Scenario:** Attempt to Upload Without Selecting a File
 
 **Pre-conditions:**
@@ -32,12 +49,9 @@
 **Expected Results:**
 - An error message is displayed, or no file name is shown.
 
-**Actual Results:**
-
-
 ---
 
-**Test Case ID:** TCP_FUP_03  
+**Test Case ID:** TCP-FUP-03  
 **Test Scenario:** Upload of a File with a Specific Format
 
 **Pre-conditions:**
@@ -52,5 +66,3 @@
 **Expected Results:**
 - The name of the uploaded file is displayed on the page.
 - The file should be accepted if it matches the allowed formats.
-
-**Actual Results:**

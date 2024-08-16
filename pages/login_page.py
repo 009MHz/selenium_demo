@@ -1,6 +1,6 @@
 from selenium.webdriver.remote.webdriver import WebDriver
 from pages.__base import Base
-from elements.login import *
+from elements.login_locators import *
 
 
 class LoginPageFunction(Base):

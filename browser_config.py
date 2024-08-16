@@ -23,10 +23,12 @@ class TestConfigBrowser:
         options = self.show_browser(options)
         options.add_argument("--headless")
         options.add_argument("--disable-gpu")
-        options.add_argument("--window-size=1920,1080")
+        options.add_argument("--window-size=1920x1080")
         options.add_argument("--no-sandbox")  # Added for running in Docker
         options.add_argument("--disable-dev-shm-usage")  # Added for running in Docker
         options.add_argument("--remote-debugging-port=9222")  # Added for running in Docker
+        options.add_argument("--disable-software-rasterizer")
+        options.add_argument("--disable-features=VizDisplayCompositor")
         return options
 
     def firefox_options(self):

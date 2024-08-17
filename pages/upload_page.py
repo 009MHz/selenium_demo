@@ -16,8 +16,6 @@ class Uploader(Base):
 
     def upload_file(self, file_name: str):
         initial_path = os.path.abspath(os.path.join("..", "data", "attachment", file_name))
-        print(f"Retrieved absolute path: {initial_path}")
-
         if not os.path.exists(initial_path):
             raise FileNotFoundError(f"File not found: {initial_path}")
 
@@ -26,7 +24,6 @@ class Uploader(Base):
     def submit_upload(self):
         self._click(FileUploader.submit)
 
-    # Todo 2: Define uploader action validation
     def url_contain_keyword(self, keyword):
         self._url_check(Url.upload)
         self._url_check(Url.upload)

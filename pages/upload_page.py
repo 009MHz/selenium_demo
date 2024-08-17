@@ -15,10 +15,14 @@ class Uploader(Base):
         self._driver.get(Url.upload)
 
     def upload_file(self, file_name: str):
-        initial_path = os.path.abspath(os.path.join("..", "data", "attachment", file_name))
+        # Resolve the absolute path to the file
+        initial_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'attachment', file_name))
+
         if not os.path.exists(initial_path):
             raise FileNotFoundError(f"File not found: {initial_path}")
 
+        # Use the resolved path to send the file to the input element
         self._find(FileUploader.select).send_keys(initial_path)
 
     def submit_upload(self):

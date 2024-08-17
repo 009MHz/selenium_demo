@@ -1,51 +1,72 @@
-import os
 import pytest
-from browser_config import TestConfigBrowser
-
+from selenium import webdriver
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.safari.webdriver import WebDriver as SafariDriver
 
 def pytest_addoption(parser):
-    """ pytest --option variables from shell
-    --browsers:
-        chrome= Run tests with Chrome driver.
-        firefox= Run tests with Firefox driver.
-        chrome-headless = Run tests with Chrome driver, headless mode.
-    --env:
-        dev: Run tests in dev environment (with dev data)
-        test: Run tests in test environment (with test data)
-        stage: Run tests in stage environment (with stage data)
-    --execution_type:
-        local: Run tests in your local machine.
-        grid: Run tests in docker with selenium grid hub (local grid - using the docker-compose.yml)
-        pipeline: Run tests in Gitlab CI.
-    """
-    parser.addoption('--env', action='store', default='test', help='')
-    parser.addoption('--browsers', help='', default='chrome')
-    parser.addoption('--execution_type', help='', default='local')
+    parser.addoption(
+        "--browsers", action="store", default="chrome", help="Comma-separated list of browsers to run tests on: chrome, firefox, edge, safari"
+    )
+    parser.addoption(
+        "--headless", action="store_true", help="Run tests in headless mode"
+    )
 
+@pytest.fixture(scope="session", params=None)
+def driver(request):
+    browser = request.param.lower()
+    headless = request.config.getoption("--headless")
 
-def pytest_configure(config):
-    os.environ["env"] = config.getoption('env')
-    os.environ["browsers"] = config.getoption('browsers')
-    os.environ["execution_type"] = config.getoption('execution_type') or 'local'
+    if browser == "chrome":
+        options = webdriver.ChromeOptions()
+        if headless:
+            options.add_argument("--headless=new")
+            options.add_argument("--disable-gpu")
+            options.add_argument("--window-size=1920x1080")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+            options.add_argument("--disable-software-rasterizer")
+            options.add_argument("--disable-features=VizDisplayCompositor")
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
+    elif browser == "firefox":
+        options = webdriver.FirefoxOptions()
+        if headless:
+            options.add_argument("--headless")
+        driver = webdriver.Firefox(service=FirefoxService(), options=options)
 
-@pytest.fixture()
-def driver():
-    browsers = os.getenv("browsers")
-    execution_type = os.getenv("execution_type")
-    mode = None
+    elif browser == "edge":
+        options = webdriver.EdgeOptions()
+        if headless:
+            options.add_argument("--headless=new")
+            options.add_argument("--disable-gpu")
+        driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()), options=options)
 
-    try:
-        if execution_type == 'grid' or execution_type == 'pipeline':
-            mode = TestConfigBrowser().select_browser()
-        elif execution_type == 'local':
-            mode = TestConfigBrowser().select_browser()
-        else:
-            raise ValueError(f"Unsupported execution type: {execution_type}")
+    elif browser == "safari":
+        if headless:
+            raise ValueError("Safari does not support headless mode")
+        driver = SafariDriver()
 
-        mode.implicitly_wait(10)
-        mode.maximize_window()
-        yield mode
-    finally:
-        if mode:
-            mode.quit()
+    else:
+        raise ValueError(f"Unsupported browser: {browser}")
+
+    yield driver
+    driver.quit()
+
+def pytest_generate_tests(metafunc):
+    # Get the list of browsers specified in the command line options
+    browsers = metafunc.config.getoption('browsers').split(',')
+    # Generate a separate test for each browser
+    if 'driver' in metafunc.fixturenames:
+        metafunc.parametrize('driver', browsers, scope='session', indirect=True)
+
+@pytest.fixture(autouse=True)
+def _browser_per_test(request, driver):
+    if request.cls is not None:
+        request.cls.driver = driver
+
+def pytest_report_header(config):
+    return f"Running tests on {config.getoption('--browsers')} browser(s)"

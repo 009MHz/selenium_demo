@@ -18,7 +18,7 @@ def pytest_addoption(parser):
 
 
 def get_browser_options(browser_name, headless):
-    """Configure and return the appropriate WebDriver options based on the browser name and headless mode."""
+    """Configure and return the appropriate WebDriver options based on the browser name and mode."""
     if browser_name == "chrome":
         options = webdriver.ChromeOptions()
     elif browser_name == "firefox":
@@ -33,13 +33,15 @@ def get_browser_options(browser_name, headless):
     options.add_argument('--disable-popup-blocking')
     options.add_argument("--disable-infobar")
 
-    if browser_name != "firefox":
-        options.add_argument("--start-maximized")
-
     if headless:
-        options.add_argument("--headless=new")
+        if browser_name == "firefox":
+            options.add_argument("--headless")
+        else:  # Chrome and Edge
+            options.add_argument("--headless=new")
         options.add_argument("--disable-gpu")
         options.add_argument("--window-size=1920x1080")
+    else:
+        options.add_argument("--start-maximized")
 
     return options
 
@@ -61,7 +63,7 @@ def create_webdriver(browser_name, headless):
     else:
         raise ValueError(f"Unsupported browser: {browser_name}")
 
-    # Maximize the window for Firefox (and other browsers if not using --start-maximized)
+    # Maximize the window for Firefox if not in headless mode
     if browser_name == "firefox" and not headless:
         driver.maximize_window()
 
@@ -91,5 +93,5 @@ def _browser_per_test(request, driver):
         request.cls.driver = driver
 
 
-def pytest_report_header(config):
-    return f"Running tests on {config.getoption('--browsers')} browser(s)"
+# def pytest_report_header(config):
+#     return f"Running tests on {config.getoption('--browsers')} browser(s)"

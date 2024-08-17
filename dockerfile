@@ -26,4 +26,4 @@ RUN pip install chromedriver_autoinstaller
 RUN python -c "import chromedriver_autoinstaller; chromedriver_autoinstaller.install()"
 
 # Command to run tests with environment variables
-CMD ["pytest", "./tests/", "--reruns", "2", "--reruns-delay", "5", "--headless"]
+CMD ["pytest", "./tests/", "--reruns", "2", "--reruns-delay", "5", "--browser=chrome-headless"]

@@ -1,36 +1,55 @@
-Scenario: Successful Login with Correct Credentials
-  Given I am on the login page
-    And the "Username" field is visible
-    And the "Password" field is visible
-  When I enter valid credentials ("username" and "password")
-    And I click on the "Login" button
-  Then I should be redirected to the secure area
-    And I should see a message "You logged into a secure area!"
+Feature: Login Functionality
+  As a user
+  I want to be able to log in to the secure area
+  So that I can access protected resources
 
-Scenario: Unsuccessful Login with Incorrect Credentials
-  Given I am on the login page
-    And the "Username" field is visible
-    And the "Password" field is visible
-  When I enter invalid credentials ("invalid_user" and "invalid_password")
-    And I click on the "Login" button
-  Then I should see an error message "Your username is invalid!" or "Your password is invalid!"
+  Scenario: Password field is masked by dot
+    Given I am on the Login Page
+    When I enter "T|-|!s I5 Sp#ci@l TeXt P4sSw012D" into the password field
+    Then the password field should be masked by dots
 
-Scenario: Password Field Masking
-  Given I am on the login page
-  When I enter text into the "Password" field
-  Then the characters in the "Password" field should be masked
-    And the password should not be visible in plain text
+  Scenario: Username input is not masked by dot
+    Given I am on the Login Page
+    When I enter "T|-|!s I5 Sp#ci@l TeXt UserN@m3" into the username field
+    Then the username field should not be masked
 
-Scenario: Login with Empty Username
-  Given I am on the login page
-    And the "Username" field is empty
-    And the "Password" field contains valid text
-  When I click on the "Login" button
-  Then I should see an error message "Your username is invalid!"
+  Scenario: Successful Login with Correct Credentials
+    Given I am on the Login Page
+    When I enter "tomsmith" into the username field
+    And I enter "SuperSecretPassword!" into the password field
+    And I click the "Login" button
+    Then I should be redirected to a URL containing "/secure"
+    And I should see a success toast message containing "You logged into"
+    And the page title should be "Secure Area"
+    And the success page sub-header should contain "When you are done"
+    And the "Logout" button should be visible and enabled
 
-Scenario: Login with Empty Password
-  Given I am on the login page
-    And the "Username" field contains valid text
-    And the "Password" field is empty
-  When I click on the "Login" button
-  Then I should see an error message "Your password is invalid!"
+  Scenario: Unsuccessful Login with Invalid Username
+    Given I am on the Login Page
+    When I enter "invalid_username" into the username field
+    And I enter "SuperSecretPassword!" into the password field
+    And I click the "Login" button
+    Then I should remain on the login page
+    And I should see a failure toast message containing "username is invalid!"
+
+  Scenario: Unsuccessful Login with Invalid Password
+    Given I am on the Login Page
+    When I enter "tomsmith" into the username field
+    And I enter "invalid_password" into the password field
+    And I click the "Login" button
+    Then I should remain on the login page
+    And I should see a failure toast message containing "password is invalid!"
+
+  Scenario: Unsuccessful Login with Invalid Credentials
+    Given I am on the Login Page
+    When I enter "invalid_username" into the username field
+    And I enter "invalid_password" into the password field
+    And I click the "Login" button
+    Then I should remain on the login page
+    And I should see a failure toast message containing "username is invalid!"
+
+  Scenario: Unsuccessful Login with Empty Fields
+    Given I am on the Login Page
+    When I click the "Login" button without entering credentials
+    Then I should remain on the login page
+    And I should see a failure toast message containing "username is invalid!"

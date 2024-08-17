@@ -15,10 +15,10 @@ class PageInfo:
 
 
 class Interactor:
-    email_label = By.CSS_SELECTOR, "label[for='username']"
-    email_input = By.ID, "username"
-    pass_label = By.CSS_SELECTOR, "label[for='password']"
-    pass_input = By.ID, "password"
+    username_label = By.CSS_SELECTOR, "label[for='username']"
+    username_input = By.ID, "username"
+    password_label = By.CSS_SELECTOR, "label[for='password']"
+    password_input = By.ID, "password"
     login_btn = By.XPATH, "//button[@type='submit']"
 
 

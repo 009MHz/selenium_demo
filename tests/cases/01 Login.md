@@ -1,107 +1,112 @@
-### Test Case 1: Login Functionality
+### **TCP-LGI-01: Password field is masked by dot**
+
+**Preconditions:** The user is on the Login Page.
+
+**Test Steps:**
+1. Enter "T|-|!s I5 Sp#ci@l TeXt P4sSw012D" into the password field.
+2. Validate that the password field is masked by dots.
+
+**Expected Result:**
+- The password field should be masked by dots.
 
 ---
 
-**Test Case ID:** TCP_LGI_01  
-**Test Scenario:** Successful Login with Correct Credentials
+### **TCP-LGI-02: Username input is not masked by dot**
 
-**Pre-conditions:**
-1. User is on the login page of the website.
-2. The login page has visible fields for "Username" and "Password."
-3. The "Login" button is available.
+**Preconditions:** The user is on the Login Page.
 
 **Test Steps:**
-1. Enter the valid username "tomsmith" in the "Username" field.
-2. Enter the valid password "SuperSecretPassword!" in the "Password" field.
-3. Click on the "Login" button.
+1. Enter "T|-|!s I5 Sp#ci@l TeXt UserN@m3" into the username field.
+2. Validate that the username field is not masked.
 
-**Expected Results:**
-- The user is redirected to the secure area.
-- A success message "You logged into a secure area!" is displayed.
-
-**Actual Results:**
-
+**Expected Result:**
+- The username field should not be masked.
 
 ---
 
-**Test Case ID:** TCN_LGI_02  
-**Test Scenario:** Unsuccessful Login with Incorrect Credentials
+### **TCP-LGI-03: Successful Login with Correct Credentials**
 
-**Pre-conditions:**
-1. User is on the login page of the website.
-2. The login page has visible fields for "Username" and "Password."
-3. The "Login" button is available.
+**Preconditions:** The user is on the Login Page.
 
 **Test Steps:**
-1. Enter an invalid username "invalid_user" in the "Username" field.
-2. Enter an invalid password "invalid_password" in the "Password" field.
-3. Click on the "Login" button.
+1. Enter "tomsmith" into the username field.
+2. Enter "SuperSecretPassword!" into the password field.
+3. Click the "Login" button.
+4. Validate that the user is redirected to a URL containing "/secure".
+5. Validate that a success toast message appears containing "You logged into".
+6. Validate that the page title is "Secure Area".
+7. Validate that the success page sub-header contains "When you are done".
+8. Validate that the "Logout" button is visible and enabled.
 
-**Expected Results:**
-- An error message "Your username is invalid!" or "Your password is invalid!" is displayed.
+**Expected Result:**
+- The user is redirected to a URL containing "/secure".
+- A success toast message appears containing "You logged into".
+- The page title is "Secure Area".
+- The success page sub-header contains "When you are done".
+- The "Logout" button is visible and enabled.
+
+---
+
+### **TCP-NGI-01: Unsuccessful Login with Invalid Username**
+
+**Preconditions:** The user is on the Login Page.
+
+**Test Steps:**
+1. Enter "invalid_username" into the username field.
+2. Enter "SuperSecretPassword!" into the password field.
+3. Click the "Login" button.
+4. Validate that the user remains on the login page.
+5. Validate that a failure toast message appears containing "username is invalid!".
+
+**Expected Result:**
 - The user remains on the login page.
-
-**Actual Results:**
-
+- A failure toast message appears containing "username is invalid!".
 
 ---
 
-**Test Case ID:** TCP_LGI_03  
-**Test Scenario:** Password Field Masking
+### **TCP-NGI-02: Unsuccessful Login with Invalid Password**
 
-**Pre-conditions:**
-1. User is on the login page of the website.
-2. The login page has visible fields for "Username" and "Password."
+**Preconditions:** The user is on the Login Page.
 
 **Test Steps:**
-1. Enter any text in the "Password" field.
+1. Enter "tomsmith" into the username field.
+2. Enter "invalid_password" into the password field.
+3. Click the "Login" button.
+4. Validate that the user remains on the login page.
+5. Validate that a failure toast message appears containing "password is invalid!".
 
-**Expected Results:**
-- The characters in the "Password" field should be masked (e.g., as dots or asterisks).
-- The password should not be visible in plain text.
-
-**Actual Results:**
-
-
----
-
-**Test Case ID:** TCN_LGI_04  
-**Test Scenario:** Login with Empty Username
-
-**Pre-conditions:**
-1. User is on the login page of the website.
-2. The login page has visible fields for "Username" and "Password."
-
-**Test Steps:**
-1. Leave the "Username" field empty.
-2. Enter a valid password "SuperSecretPassword!" in the "Password" field.
-3. Click on the "Login" button.
-
-**Expected Results:**
-- An error message "Your username is invalid!" is displayed.
+**Expected Result:**
 - The user remains on the login page.
-
-**Actual Results:**
-
+- A failure toast message appears containing "password is invalid!".
 
 ---
 
-**Test Case ID:** TCN_LGI_05  
-**Test Scenario:** Login with Empty Password
+### **TCP-NGI-03: Unsuccessful Login with Invalid Credentials**
 
-**Pre-conditions:**
-1. User is on the login page of the website.
-2. The login page has visible fields for "Username" and "Password."
+**Preconditions:** The user is on the Login Page.
 
 **Test Steps:**
-1. Enter a valid username "tomsmith" in the "Username" field.
-2. Leave the "Password" field empty.
-3. Click on the "Login" button.
+1. Enter "invalid_username" into the username field.
+2. Enter "invalid_password" into the password field.
+3. Click the "Login" button.
+4. Validate that the user remains on the login page.
+5. Validate that a failure toast message appears containing "username is invalid!".
 
-**Expected Results:**
-- An error message "Your password is invalid!" is displayed.
+**Expected Result:**
 - The user remains on the login page.
+- A failure toast message appears containing "username is invalid!".
 
-**Actual Results:**
+---
 
+### **TCP-NGI-04: Unsuccessful Login with Empty Fields**
 
+**Preconditions:** The user is on the Login Page.
+
+**Test Steps:**
+1. Click the "Login" button without entering credentials.
+2. Validate that the user remains on the login page.
+3. Validate that a failure toast message appears containing "username is invalid!".
+
+**Expected Result:**
+- The user remains on the login page.
+- A failure toast message appears containing "username is invalid!".

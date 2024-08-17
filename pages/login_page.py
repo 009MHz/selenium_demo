@@ -100,6 +100,7 @@ class LoginPageFunction(Base):
         assert self._find(PageInfo.toast).is_displayed(), "❌ Username fail toast message is not displayed"
         assert keyword in toast_message, f"❌ Fail toast message does not match with '{keyword}'"
 
+    """Repeatable Custom Action"""
     def pre_action_initiate(self):
         with allure.step("▸ Navigate the login page URL"):
             self.open_page()

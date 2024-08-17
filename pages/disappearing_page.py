@@ -63,6 +63,7 @@ class Disappearance(Base):
         final_count = len(self._driver.find_elements(*Interactor.delete))
         assert final_count == initial_count - delete_count, f"❌ The deleted element doesn't match"
 
+    """Repeatable Custom Action"""
     def pre_action_initiate(self):
         with allure.step("▸ Navigate to the Add/Remove Elements Page"):
             self.open_page()

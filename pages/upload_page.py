@@ -10,7 +10,7 @@ class Uploader(Base):
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
 
-    # Todo 1: Define uploader interaction
+    """Page Interaction"""
     def open_page(self):
         self._driver.get(Url.upload)
 
@@ -24,6 +24,7 @@ class Uploader(Base):
     def submit_upload(self):
         self._click(FileUploader.submit)
 
+    """Page Validation"""
     def url_contain_keyword(self, keyword):
         self._url_check(Url.upload)
         self._url_check(Url.upload)

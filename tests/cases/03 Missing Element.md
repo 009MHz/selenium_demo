@@ -1,37 +1,60 @@
-**Test Case ID:** TCP_MEP_01  
-**Test Scenario:** Handle Missing Element Gracefully
+### **TCP-MEP-01: Dismissed Initial Page Validation**
 
-**Pre-conditions:**
-1. User is on the missing element page.
+**Preconditions:** The user is on the Add/Remove Elements page.
 
 **Test Steps:**
-1. Observe the page for the presence or absence of a specific element (e.g., a button or text).
+1. Navigate to the Add/Remove Elements page.
+2. Verify that the current page URL contains "add_remove_elements".
+3. Verify that the page title is "Add/Remove Elements".
+4. Verify that the "Add Element" button is interactable.
+5. Verify that the "Delete" button is not present initially.
 
-**Expected Results:**
-- The page should load without breaking.
-- A placeholder or an appropriate message should be displayed if the element is missing.
-
-**Actual Results:**
-
+**Expected Result:**
+- The page URL contains "add_remove_elements".
+- The title matches.
+- The "Add Element" button is interactable.
+- No "Delete" buttons are present initially.
 
 ---
 
-**Test Case ID:** TCP_MEP_02  
-**Test Scenario:** Interaction with a Dynamically Loaded Element
+### **TCP-MEP-02: Validate the Additional Element After Clicking on the Add Button**
 
-**Pre-conditions:**
-1. User is on the missing element page.
-2. The element is not initially present but loads dynamically after some time.
+**Preconditions:** The user is on the Add/Remove Elements page.
 
 **Test Steps:**
-1. Wait for the dynamically loaded element to appear.
-2. Interact with the element (e.g., click a button).
+1. Click on the "Add Element" button.
+2. Verify that the "Delete" button appears.
 
-**Expected Results:**
-- The element should be interactive once it appears.
-- The page should function as expected without any errors.
+**Expected Result:**
+- The "Delete" button appears after clicking "Add Element".
 
-**Actual Results:**
+---
 
+### **TCP-MEP-03: Validate Element Removal After Clicking on the Delete Button**
+
+**Preconditions:** The user has added an element on the Add/Remove Elements page.
+
+**Test Steps:**
+1. Click on the "Delete" button.
+2. Verify that the "Delete" button disappears.
+
+**Expected Result:**
+- The "Delete" button disappears after clicking on it.
+
+---
+
+### **TCP-MEP-04: Validate Multiple Interactions with Elements**
+
+**Preconditions:** The user is on the Add/Remove Elements page.
+
+**Test Steps:**
+1. Click the "Add Element" button 5 times.
+2. Verify that 5 "Delete" buttons are present.
+3. Click the "Delete" button 3 times.
+4. Verify that 2 "Delete" buttons remain.
+
+**Expected Result:**
+- After 5 additions, 5 "Delete" buttons are present.
+- After 3 deletions, 2 "Delete" buttons remain.
 
 ---

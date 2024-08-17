@@ -86,9 +86,15 @@ jobs:
         allure_history: allure-history
         allure_results: allure-results-merged
 
+    - name: Move report to versioned directory
+      run: |
+        mkdir -p gh-pages/${{ env.BUILD_NUMBER }}
+        mv gh-pages/* gh-pages/${{ env.BUILD_NUMBER }}/
+        echo "Report available at: https://009mhz.github.io/selenium_demo/${{ env.BUILD_NUMBER }}/"
+
     - name: Publish test report
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: allure-history
+        publish_dir: gh-pages

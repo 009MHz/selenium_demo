@@ -40,9 +40,9 @@ class TestSuccessUpload:
 
     @pytest.mark.ui
     @pytest.mark.positive
-    @allure.title("")
+    @allure.title("Successful File Upload Validation")
     @allure.id("TCP-FUP-02")
-    @allure.tag("")
+    @allure.tag("Upload", "Success")
     @pytest.mark.parametrize("file_name", ['testFile.docx'])
     def test_upload_file_TCP_FUP_02(self, uploader, file_name):
         with allure.step("1. Insert the file name with the extension"):
@@ -52,5 +52,42 @@ class TestSuccessUpload:
             uploader.submit_upload()
 
         with allure.step("3. Verify the successful state"):
+            uploader.url_contain_keyword('upload')
             uploader.success_title_page_match('File Uploaded!')
             uploader.file_name_availability(file_name)
+
+    @pytest.mark.ui
+    @pytest.mark.positive
+    @allure.title("File Upload Documents Test")
+    @allure.id("TCP-FUP-03")
+    @allure.tag("Upload", "Success", "Doc Files")
+    @pytest.mark.parametrize("file_name", ['testFile.docx', 'testFile.pdf'])
+    def test_upload_file_docs_TCP_FUP_03(self, uploader, file_name):
+        uploader.upload_file_runner(file_name)
+
+    @pytest.mark.ui
+    @pytest.mark.positive
+    @allure.title("File Upload Images Test")
+    @allure.id("TCP-FUP-04")
+    @allure.tag("Upload", "Success", "Image Files")
+    @pytest.mark.parametrize("file_name", ['testFile.png', 'testFile.jpeg'])
+    def test_upload_file_image_TCP_FUP_04(self, uploader, file_name):
+        uploader.upload_file_runner(file_name)
+
+    @pytest.mark.ui
+    @pytest.mark.positive
+    @allure.title("File Upload Data Test")
+    @allure.id("TCP-FUP-05")
+    @allure.tag("Upload", "Success", "Data Files")
+    @pytest.mark.parametrize("file_name", ['testFile.csv', 'testFile.xlsx'])
+    def test_upload_file_spreadsheet_TCP_FUP_05(self, uploader, file_name):
+        uploader.upload_file_runner(file_name)
+
+    @pytest.mark.ui
+    @pytest.mark.positive
+    @allure.title("File Upload Video Test")
+    @allure.id("TCP-FUP-06")
+    @allure.tag("Upload", "Success", "Video Files")
+    @pytest.mark.parametrize("file_name", ['testFile.mp4', 'testFile.webm'])
+    def test_upload_file_video_TCP_FUP_06(self, uploader, file_name):
+        uploader.upload_file_runner(file_name)

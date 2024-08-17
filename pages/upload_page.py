@@ -78,3 +78,14 @@ class Uploader(Base):
             self.submit_file_availability()
             self.dragging_box_availability()
             
+    def upload_file_runner(self, file_name):
+        with allure.step("1. Insert the file name with the extension"):
+            self.upload_file(file_name)
+
+        with allure.step("2. Click on the submit button"):
+            self.submit_upload()
+
+        with allure.step("3. Verify the successful state"):
+            self.url_contain_keyword('upload')
+            self.success_title_page_match('File Uploaded!')
+            self.file_name_availability(file_name)

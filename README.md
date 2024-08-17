@@ -1,17 +1,14 @@
 # Project Documentation
 
-## Overview
-This repository contains a test automation framework for End-to-End (E2E) and API testing using Selenium and pytest.
-
 # Table of Contents
 1. [Folder Descriptions](#folder-descriptions)
 2. [File Summaries](#file-summaries)
-   - [`browser_config.py`](#browser_config.py)
-   - [`conftest.py`](#conftest.py)
+   - [`browser_config.py`](#browser_configpy)
+   - [`conftest.py`](#conftestpy)
    - [`dockerfile`](#dockerfile)
-   - [`pytest.ini`](#pytest.ini)
-   - [`requirements.txt`](#requirements.txt)
-   - [`ci.yml`](#ci.yml)
+   - [`pytest.ini`](#pytestini)
+   - [`requirements.txt`](#requirementstxt)
+   - [`ci.yml`](#ciyml)
 3. [Running Tests](#running-tests)
    - [1. Running a Single Test](#1-running-a-single-test)
    - [2. Running Multiple Test Files](#2-running-multiple-test-files)
@@ -19,6 +16,7 @@ This repository contains a test automation framework for End-to-End (E2E) and AP
    - [4. Running Tests with Reports](#4-running-tests-with-reports)
       - [Including Test Report](#including-test-report)
       - [Generating the Report](#generating-the-report)
+   - [5. Running Tests on Multiple Browsers](#5-running-tests-on-multiple-browsers)
 
 ## Folder Descriptions
 
@@ -27,33 +25,29 @@ This repository contains a test automation framework for End-to-End (E2E) and AP
 - **source**: Contains API patterns and custom functions/methods used for testing.
 - **tests**: Contains automated test files.
 
-
 ## File Summaries
 
 ### `browser_config.py`
-Configures Selenium WebDriver options for different browsers and execution environments.
+This file contains the `BrowserManager` class, which is responsible for configuring Selenium WebDriver options and creating WebDriver instances for different browsers.
 
-#### Key Functions
-- **Initialization (`__init__`)**: Sets environment variables and installs ChromeDriver.
-- **Browser Options**:
-  - `show_browser(options)`: Configures options for visible mode.
-  - `hide_browser(options)`: Configures options for headless mode.
-  - Browser-specific options for Chrome, Firefox, and Edge.
-- **`set_options()`**: Sets browser options based on environment variables.
-- **`set_command_executor()`**: Determines Selenium command executor URL.
-- **`select_browser()`**: Initializes WebDriver instance based on execution type and browser.
+#### Key Class and Methods
+- **`BrowserManager` Class**: Handles browser configuration and WebDriver creation.
+  - **Initialization (`__init__`)**: Takes the browser name and headless mode as parameters.
+  - **`get_browser_options()`**: Configures and returns WebDriver options based on the browser name and mode.
+  - **`create_webdriver()`**: Initializes and returns a WebDriver instance based on the specified browser.
 
 ### `conftest.py`
-Sets up the configuration for pytest, allowing customization of test runs via command-line options. Configures environment variables and initializes WebDriver instances based on the specified execution type and browser.
+This file sets up the configuration for pytest, allowing customization of test runs via command-line options. It uses the `BrowserManager` class from `browser_config.py` to configure and initialize WebDriver instances.
 
 #### Key Functions and Fixtures
-1. **`pytest_addoption(parser)`**
-2. **`pytest_configure(config)`**
-3. **`driver` Fixture**
+1. **`pytest_addoption(parser)`**: Adds command-line options for specifying the browser and headless mode.
+2. **`driver` Fixture**: Initializes the WebDriver using `BrowserManager` and yields it for use in tests.
+3. **`pytest_generate_tests(metafunc)`**: Dynamically generates tests for each specified browser.
+4. **`_browser_per_test` Fixture**: Automatically assigns the WebDriver to test classes.
 
 #### Example Usage
 ```bash
-pytest --env=dev --browser=chrome --execution_type=local
+pytest --browsers=chrome --headless
 ```
 
 ### `dockerfile`
@@ -99,7 +93,6 @@ Lists Python dependencies needed for the project, including libraries for pytest
 7. **`requests`**: Simplifies making HTTP requests for API testing.
 8. **`selenium`**: Provides tools for web browser automation.
 9. **`webdriver-manager`**: Automatically manages WebDriver binaries.
-
 
 ### `ci.yml`
 This config is used for running Selenium E2E tests in a CI/CD pipeline.
@@ -241,3 +234,51 @@ Starts a local web server to display the Allure report in your default browser.
 ```sh
 allure serve reports/
 ```
+
+### 5. Running Tests on Multiple Browsers
+
+The test suite supports running tests on multiple browsers by specifying the `--browsers` command-line option. This allows you to test cross-browser compatibility by running your tests sequentially on each specified browser.
+
+#### Supported Browsers
+The following browsers are supported:
+- **Chrome**
+- **Firefox**
+- **Edge**
+
+#### Example Commands
+
+- **Single Browser**: Run tests on Chrome:
+  ```sh
+  pytest --browsers=firefox
+  ```
+
+- **Multiple Browsers**: Run tests on Chrome, Firefox, and Edge sequentially:
+  ```sh
+  pytest --browsers=chrome,firefox,edge
+  ```
+
+- **Headless Mode**: Run tests on Chrome and Firefox in headless mode:
+  ```sh
+  pytest --browsers=chrome,firefox --headless
+  ```
+
+- **All Browsers**: Run tests across all supported browsers:
+  ```sh
+  pytest --browsers=chrome,firefox,edge
+  ```
+
+#### Parallel Execution with Multiple Browsers
+
+For faster test execution, you can run tests in parallel across multiple browsers using `pytest-xdist`. Specify the number of parallel workers with `-n`:
+
+```sh
+pytest --browsers=chrome,firefox --headless -n 2
+```
+
+This command runs the tests on Chrome and Firefox in parallel using two workers.
+
+#### Considerations
+- **Cross-Browser Testing**: Running tests on multiple browsers ensures your application behaves consistently across different environments.
+- **Performance**: Parallel execution with multiple browsers can reduce overall test time, especially in CI/CD pipelines.
+
+---

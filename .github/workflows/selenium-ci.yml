@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  pages: write
+
 jobs:
   test-execution:
     runs-on: ubuntu-latest
@@ -37,31 +41,34 @@ jobs:
     runs-on: ubuntu-latest
     needs: test-execution
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Load test report history
-      uses: actions/checkout@v4
-      with:
-        ref: gh-pages
-        path: gh-pages
+      - name: Fetch gh-pages branch
+        run: |
+          git fetch origin gh-pages:gh-pages
 
-    - name: Merge remote changes
-      run: |
-        git config user.name "GitHub Actions"
-        git config user.email "actions@github.com"
-        git pull origin gh-pages --rebase || git rebase --abort
+      - name: Load test report history
+        run: |
+          git checkout gh-pages
+          mkdir -p gh-pages
 
-    - name: Build test report
-      uses: simple-elf/allure-report-action@v1.7
-      with:
-        gh_pages: gh-pages
-        allure_history: allure-history
-        allure_results: allure-results
+      - name: Merge remote changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git pull origin gh-pages --rebase || git rebase --abort
 
-    - name: Force push changes to gh-pages
-      run: |
-        git add -A
-        git commit -m "Update Allure report"
-        git push origin gh-pages --force
-      if: always()
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: allure-results
+
+      - name: Commit and push changes
+        run: |
+          git add -A
+          git commit -m "Update Allure report"
+          git push origin gh-pages --force
+        if: always()

@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+
 permissions:
   contents: write
   pages: write
@@ -31,9 +32,49 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+
     - name: Run tests on ${{ matrix.browser }} browser
       run: |
         pytest ./tests --browsers=${{ matrix.browser }} --alluredir=./allure-results -n=auto --headless
+
+    - name: Upload completion signal
+      run: echo "${{ matrix.browser }} completed" > completion-${{ matrix.browser }}.txt
+      if: always()
+      continue-on-error: true
+
+    - name: Upload completion artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: completion-${{ matrix.browser }}
+        path: completion-${{ matrix.browser }}.txt
+
+    - name: Download all completion artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: completion-chrome
+        path: ./completion/
+      if: ${{ matrix.browser == 'chrome' }}
+
+    - name: Download all completion artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: completion-firefox
+        path: ./completion/
+      if: ${{ matrix.browser == 'firefox' }}
+
+    - name: Download all completion artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: completion-edge
+        path: ./completion/
+      if: ${{ matrix.browser == 'edge' }}
+
+    - name: Wait for all tests to complete
+      run: |
+        while [ $(ls ./completion | wc -l) -lt 3 ]; do
+          echo "Waiting for all tests to complete..."
+          sleep 10
+        done
 
     - name: Load test report history
       uses: actions/checkout@v4

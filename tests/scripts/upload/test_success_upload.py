@@ -46,5 +46,11 @@ class TestSuccessUpload:
     def test_upload_file_TCP_FUP_02(self, uploader):
         with allure.step("1. Insert the file name with the extension"):
             uploader.upload_file('testFile.docx')
+
         with allure.step("2. Click on the submit button"):
             uploader.submit_upload()
+
+        with allure.step("3. Verify the successful state"):
+            uploader.success_title_page_availability()
+            uploader.file_name_availability()
+

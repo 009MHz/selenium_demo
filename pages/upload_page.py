@@ -14,11 +14,9 @@ class Uploader(Base):
         self._driver.get(Url.upload)
 
     def upload_file(self, file_name: str):
-        # Construct the absolute path relative to the root directory
         initial_path = os.path.abspath(os.path.join("..", "data", "attachment", file_name))
         print(f"Retrieved absolute path: {initial_path}")
 
-        # Ensure the file exists
         if not os.path.exists(initial_path):
             raise FileNotFoundError(f"File not found: {initial_path}")
 
@@ -60,7 +58,13 @@ class Uploader(Base):
 
         file_marker = self._find(FileUploader.dragged_mark)
         assert not file_marker.is_displayed(), "❌ The File Name marker should not be exist"
-        
+
+    def success_title_page_availability(self):
+        pass
+
+    def file_name_availability(self):
+        pass
+
     def pre_action_initiate(self):
         with allure.step("▸ Navigate to the File Upload Page"):
             self.open_page()

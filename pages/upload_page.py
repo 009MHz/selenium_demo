@@ -1,5 +1,7 @@
 import allure
 import os
+
+from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webdriver import WebDriver
 from pages.__base import Base
 from elements.uploader_locators import *
@@ -69,6 +71,12 @@ class Uploader(Base):
         actual_name = self._find(PageInfo.uploaded_file_name).text
         assert file_name == actual_name, f"❌ Page title does not match 'File Uploaded'"
 
+    def error_page_title_match(self, keyword: str):
+        self._view(PageInfo.err_page)
+        err_title = self._find(PageInfo.err_page).text
+        assert err_title == err_title, f"❌ Page title does not match 'Internal Server Error'"
+
+    """Repeatable Custom Action"""
     def pre_action_initiate(self):
         with allure.step("▸ Navigate to the File Upload Page"):
             self.open_page()

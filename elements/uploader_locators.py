@@ -9,6 +9,7 @@ class PageInfo:
     title = By.CSS_SELECTOR, "div[class='example'] h3"
     description = By.CSS_SELECTOR, "div[class='example'] p"
     uploaded_file_name = By.ID, "uploaded-files"
+    err_page = By.TAG_NAME, "h1"
 
 
 class FileUploader:

@@ -70,7 +70,7 @@ Sets up an environment for running automated tests with Selenium and pytest in a
 8. **Run Tests**: Executes pytest on E2E test scripts with options to rerun failed tests.
 
 ```dockerfile
-CMD ["pytest", "./tests/", "--reruns", "2", "--reruns-delay", "5", "--headless"]
+CMD ["pytest", "./tests/", "--reruns", "2", "--reruns-delay", "3"]
 ```
 - **`pytest`**: Required commands to run the test
 - **`./tests/E2E`**: Specifies the target directory to run the test file
@@ -99,7 +99,6 @@ Lists Python dependencies needed for the project, including libraries for pytest
 7. **`requests`**: Simplifies making HTTP requests for API testing.
 8. **`selenium`**: Provides tools for web browser automation.
 9. **`webdriver-manager`**: Automatically manages WebDriver binaries.
-10. **`chromedriver_autoinstaller`**: Automatically installs the correct version of ChromeDriver.
 
 
 ### `ci.yml`
@@ -188,7 +187,7 @@ pytest path/to/test_file.py::test_name
 ```
 ***Example Usage***
 ```shell
-pytest .\tests\E2E\test_login_action.py 
+pytest .\tests\scripts\disappearing\test_dissapearing_element.py 
 ```
 
 ### 2. Running Multiple Test Files
@@ -198,7 +197,7 @@ pytest path/to/test_file1.py::test_name1 path/to/test_file2.py::test_name2
 ```
 ***Example Usage***
 ```shell
-pytest .\tests\E2E\test_login_action.py .\tests\API\test_GET_event.py 
+pytest .\tests\scripts\disappearing\test_dissapearing_element.py  .\tests\scripts\login\test_valid_login.py   
 ```
 
 ### 3. Running Tests from Multiple Folders
@@ -210,7 +209,7 @@ This command executes all tests found within `folder1` and `folder2`. Adjust pat
 
 ***Example Usage***
 ```shell
-pytest .\tests\E2E\ .\tests\API\ 
+pytest .\tests\scripts\disappearing\ .\tests\scripts\login\ 
 ```
 To simplify, use:
 ```sh

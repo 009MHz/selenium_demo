@@ -48,7 +48,7 @@ class TestDismissedElement:
     @pytest.mark.ui
     @pytest.mark.positive
     @allure.title("Validate the additional element after click on the Add button")
-    @allure.tag("Add")
+    @allure.tag("Delete")
     @allure.id("TCP-MEP-03")
     def test_deleting_added_element_TCP_MEP_03(self, diss):
         with allure.step("1. Click on the Add button"):
@@ -66,7 +66,7 @@ class TestDismissedElement:
     @pytest.mark.ui
     @pytest.mark.positive
     @allure.title("Validate multiple interactions element")
-    @allure.tag("Add")
+    @allure.tag("Add", "Delete")
     @allure.id("TCP-MEP-04")
     def test_multiple_action_TCP_MEP_04(self, diss):
         with allure.step("1. Click on the Add button several times"):

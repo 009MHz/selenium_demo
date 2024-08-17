@@ -70,8 +70,7 @@ class TestDismissedElement:
     @allure.id("TCP-MEP-04")
     def test_multiple_action_TCP_MEP_04(self, diss):
         with allure.step("1. Click on the Add button several times"):
-            diss.multiple_additions_check(3)
+            diss.multiple_additions_check(5)
 
-        with allure.step("2. Click on the Add button several times"):
-            diss.multiple_additions_check(3)
+        with allure.step("2. Click on the Delete button several times"):
             diss.multiple_deletions_check(3)

@@ -59,11 +59,15 @@ class Uploader(Base):
         file_marker = self._find(FileUploader.dragged_mark)
         assert not file_marker.is_displayed(), "❌ The File Name marker should not be exist"
 
-    def success_title_page_availability(self):
-        pass
+    def success_title_page_match(self, page_title: str):
+        self._view(PageInfo.title)
+        text_header = self._find(PageInfo.title).text
+        assert page_title == text_header, f"❌ Page title does not match 'File Uploaded'"
 
-    def file_name_availability(self):
-        pass
+    def file_name_availability(self, file_name: str):
+        self._view(PageInfo.title)
+        actual_name = self._find(PageInfo.uploaded_file_name).text
+        assert file_name == actual_name, f"❌ Page title does not match 'File Uploaded'"
 
     def pre_action_initiate(self):
         with allure.step("▸ Navigate to the File Upload Page"):

@@ -43,14 +43,14 @@ class TestSuccessUpload:
     @allure.title("")
     @allure.id("TCP-FUP-02")
     @allure.tag("")
-    def test_upload_file_TCP_FUP_02(self, uploader):
+    @pytest.mark.parametrize("file_name", ['testFile.docx'])
+    def test_upload_file_TCP_FUP_02(self, uploader, file_name):
         with allure.step("1. Insert the file name with the extension"):
-            uploader.upload_file('testFile.docx')
+            uploader.upload_file(file_name)
 
         with allure.step("2. Click on the submit button"):
             uploader.submit_upload()
 
         with allure.step("3. Verify the successful state"):
-            uploader.success_title_page_availability()
-            uploader.file_name_availability()
-
+            uploader.success_title_page_match('File Uploaded!')
+            uploader.file_name_availability(file_name)

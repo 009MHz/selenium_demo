@@ -1,68 +1,128 @@
-**Test Case ID:** TCP-FUP-01  
-**Test Scenario:** File Uploader Page contains the correct components
+### **TCP-FUP-01: File Uploader Page contains the correct components**
 
-**Pre-conditions:**
+**Preconditions:** 
 
 **Test Steps:**
-1. Navigate to the file uploader page
-2. Ensure upload file page contains proper information
-3. Ensure the file uploader components are exist and interactable
+1. Navigate to the File Upload Page.
+2. Validate the URL contains "upload".
+3. Validate the page title is "File Uploader".
+4. Validate the page info contains "Choose a file".
+5. Validate the page info contains "Or, drag and drop a file".
+6. Validate the "Choose File" button is accessible.
+7. Validate the "Upload" button is accessible.
+8. Validate the dragging box is accessible and the file name preview and marker are not visible.
 
-**Expected Results:**
-- The page title displayed "File Uploader"
-- The page description is available and contains the proper information
-- The File Selector button is enabled and displayed as "Choose File"
-- The default filename state displayed as empty and written as "No file chosen"
-- The submit file button is enabled and displayed as "Upload"
-- The drag box section is displayed and contains the empty value 
+**Expected Result:**
+- The URL contains "upload".
+- The page title is "File Uploader".
+- The page info contains the correct text.
+- The "Choose File" button is accessible.
+- The "Upload" button is accessible.
+- The dragging box is accessible, and the file name preview and marker are not visible.
 
 ---
 
-**Test Case ID:** TCP-FUP-02  
-**Test Scenario:** Successful File Upload
+### **TCP-FUP-02: Successful File Upload Validation**
 
-**Pre-conditions:**
-1. User is on the file uploader page.
-2. The file uploader allows file selection.
+**Preconditions:** The user is on the File Upload Page.
 
 **Test Steps:**
-1. Click on the "Choose File" button.
-2. Select a valid file from the local machine.
-3. Click on the "Upload" button.
+1. Select the file e.g: `testFile.docx`.
+2. Click the "Upload" button.
+3. Verify the URL contains "upload".
+4. Verify the page title is "File Uploaded!".
+5. Verify the uploaded file name is "testFile.docx".
 
-**Expected Results:**
-- The name of the uploaded file is displayed on the page.
+**Expected Result:**
+- The URL contains "upload".
+- The page title is "File Uploaded!".
+- The uploaded file name is "testFile.docx".
 
 ---
 
-**Test Case ID:** TCN-FUP-01  
-**Test Scenario:** Attempt to Upload Without Selecting a File
+### **TCP-FUP-03: File Upload Documents Test**
 
-**Pre-conditions:**
-1. User is on the file uploader page.
-2. The file uploader allows file selection.
+**Preconditions:** The user is on the File Upload Page.
 
 **Test Steps:**
-1. Do not select any file.
-2. Click on the "Upload" button.
+1. Select the file "testFile.docx" or "testFile.pdf".
+2. Click the "Upload" button.
+3. Verify the URL contains "upload".
+4. Verify the page title is "File Uploaded!".
+5. Verify the uploaded file name matches the selected file.
 
-**Expected Results:**
-- An error message is displayed, or no file name is shown.
+**Expected Result:**
+- The URL contains "upload".
+- The page title is "File Uploaded!".
+- The uploaded file name matches the selected file.
 
 ---
 
-**Test Case ID:** TCP-FUP-03  
-**Test Scenario:** Upload of a File with a Specific Format
+### **TCP-FUP-04: File Upload Images Test**
 
-**Pre-conditions:**
-1. User is on the file uploader page.
-2. The file uploader allows file selection.
+**Preconditions:** The user is on the File Upload Page.
 
 **Test Steps:**
-1. Click on the "Choose File" button.
-2. Select a file with a specific format (e.g., .txt, .jpg).
-3. Click on the "Upload" button.
+1. Select the file "testFile.png" or "testFile.jpeg".
+2. Click the "Upload" button.
+3. Verify the URL contains "upload".
+4. Verify the page title is "File Uploaded!".
+5. Verify the uploaded file name matches the selected file.
 
-**Expected Results:**
-- The name of the uploaded file is displayed on the page.
-- The file should be accepted if it matches the allowed formats.
+**Expected Result:**
+- The URL contains "upload".
+- The page title is "File Uploaded!".
+- The uploaded file name matches the selected file.
+
+---
+
+### **TCP-FUP-05: File Upload Data Test**
+
+**Preconditions:** The user is on the File Upload Page.
+
+**Test Steps:**
+1. Select the file "testFile.csv" or "testFile.xlsx".
+2. Click the "Upload" button.
+3. Verify the URL contains "upload".
+4. Verify the page title is "File Uploaded!".
+5. Verify the uploaded file name matches the selected file.
+
+**Expected Result:**
+- The URL contains "upload".
+- The page title is "File Uploaded!".
+- The uploaded file name matches the selected file.
+
+---
+
+### **TCP-FUP-06: File Upload Video Test**
+
+**Preconditions:** The user is on the File Upload Page.
+
+**Test Steps:**
+1. Select the file "testFile.mp4" or "testFile.webm".
+2. Click the "Upload" button.
+3. Verify the URL contains "upload".
+4. Verify the page title is "File Uploaded!".
+5. Verify the uploaded file name matches the selected file.
+
+**Expected Result:**
+- The URL contains "upload".
+- The page title is "File Uploaded!".
+- The uploaded file name matches the selected file.
+
+---
+
+### **TCN-FUP-01: No File Upload Error Validation**
+
+**Preconditions:** The user is on the File Upload Page.
+
+**Test Steps:**
+1. Click the "Upload" button without selecting any file.
+2. Verify the URL contains "upload".
+3. Verify the page title is "Internal Server Error".
+4. Verify the file preview is not visible.
+
+**Expected Result:**
+- The URL contains "upload".
+- The page title is "Internal Server Error".
+- The file preview is not visible.

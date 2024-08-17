@@ -22,27 +22,41 @@ def driver(request):
 
     if browser == "chrome":
         options = webdriver.ChromeOptions()
+        options.add_argument("--disable-notifications")
+        options.add_argument("--disable-extensions")
+        options.add_argument('--disable-popup-blocking')
+        options.add_argument("--disable-infobar")
+        options.add_argument("--start-maximized")
         if headless:
             options.add_argument("--headless=new")
             options.add_argument("--disable-gpu")
             options.add_argument("--window-size=1920x1080")
-            options.add_argument("--no-sandbox")
-            options.add_argument("--disable-dev-shm-usage")
-            options.add_argument("--disable-software-rasterizer")
-            options.add_argument("--disable-features=VizDisplayCompositor")
         driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
     elif browser == "firefox":
         options = webdriver.FirefoxOptions()
+        options.add_argument("--disable-notifications")
+        options.add_argument("--disable-extensions")
+        options.add_argument('--disable-popup-blocking')
+        options.add_argument("--disable-infobar")
+        options.add_argument("--start-maximized")
         if headless:
-            options.add_argument("--headless")
+            options.add_argument("--headless=new")
+            options.add_argument("--disable-gpu")
+            options.add_argument("--window-size=1920x1080")
         driver = webdriver.Firefox(service=FirefoxService(), options=options)
 
     elif browser == "edge":
         options = webdriver.EdgeOptions()
+        options.add_argument("--disable-notifications")
+        options.add_argument("--disable-extensions")
+        options.add_argument('--disable-popup-blocking')
+        options.add_argument("--disable-infobar")
+        options.add_argument("--start-maximized")
         if headless:
             options.add_argument("--headless=new")
             options.add_argument("--disable-gpu")
+            options.add_argument("--window-size=1920x1080")
         driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()), options=options)
 
     elif browser == "safari":

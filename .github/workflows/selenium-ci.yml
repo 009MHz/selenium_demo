@@ -7,7 +7,6 @@ on:
   pull_request:
     branches:
       - main
-
 permissions:
   contents: write
   pages: write
@@ -32,7 +31,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-
     - name: Run tests on ${{ matrix.browser }} browser
       run: |
         pytest ./tests --browsers=${{ matrix.browser }} --alluredir=./allure-results -n=auto --headless
@@ -45,13 +43,6 @@ jobs:
         ref: gh-pages
         path: gh-pages
 
-    - name: Pull latest changes from gh-pages
-      run: |
-        git config user.name "GitHub Actions"
-        git config user.email "actions@github.com"
-        git pull origin gh-pages || true
-      if: always()
-
     - name: Build test report
       uses: simple-elf/allure-report-action@v1.7
       if: always()
@@ -61,10 +52,9 @@ jobs:
         allure_results: allure-results
 
     - name: Publish test report
-      run: |
-        git add .
-        git commit -m "Update Allure report"
-        git push origin gh-pages
+      uses: peaceiris/actions-gh-pages@v3
       if: always()
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: allure-history

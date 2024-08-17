@@ -15,6 +15,7 @@ def uploader(driver):
 @allure.story("Upload/ Select File")
 @allure.testcase("https://the-internet.herokuapp.com/upload", "File Uploader Page")
 @allure.tag("Upload")
+@pytest.mark.uploader
 class TestSuccessUploadBySelect:
     @pytest.mark.ui
     @pytest.mark.positive

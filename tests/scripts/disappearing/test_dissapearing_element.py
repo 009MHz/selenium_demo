@@ -14,6 +14,7 @@ def diss(driver):
 @allure.story("Disappearing/ Action")
 @allure.testcase("https://the-internet.herokuapp.com/add_remove_elements/", "Element Disappearance")
 @allure.tag("Disappearance")
+@pytest.mark.disappearance
 class TestDismissedElement:
     @pytest.mark.ui
     @pytest.mark.positive

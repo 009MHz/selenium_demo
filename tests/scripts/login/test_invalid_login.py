@@ -15,6 +15,7 @@ def login(driver):
 @allure.story("Login/ Invalid Login")
 @allure.testcase("https://the-internet.herokuapp.com/login", "Negative Login Tests")
 @allure.tag("Login", "Invalid")
+@pytest.mark.login
 class TestFailedLogin:
     @pytest.mark.ui
     @pytest.mark.negative

@@ -15,6 +15,7 @@ def login(driver):
 @allure.story("Login/ Success Login")
 @allure.testcase("https://the-internet.herokuapp.com/login", "Positive Login")
 @allure.tag("Login", "Valid")
+@pytest.mark.login
 class TestSuccessLogin:
     @pytest.mark.ui
     @pytest.mark.positive

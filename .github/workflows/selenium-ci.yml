@@ -31,7 +31,7 @@ jobs:
 
     - name: Run tests on ${{ matrix.browser }} browser
       run: |
-        pytest --browsers=${{ matrix.browser }} --alluredir=./allure-results -n=auto --headless
+        pytest .\tests --browsers=${{ matrix.browser }} --alluredir=./allure-results -n=auto --headless
 
     - name: Load test report history
       uses: actions/checkout@v4

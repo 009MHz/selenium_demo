@@ -17,7 +17,7 @@ class Uploader(Base):
     def upload_file(self, file_name: str):
         # Resolve the absolute path to the file
         initial_path = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'attachment', file_name))
+            os.path.join(os.path.dirname(__file__), '..', 'data', 'attachment', file_name))
 
         if not os.path.exists(initial_path):
             raise FileNotFoundError(f"File not found: {initial_path}")

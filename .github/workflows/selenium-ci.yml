@@ -45,7 +45,7 @@ jobs:
 
   report-builder:
     runs-on: ubuntu-latest
-    needs: test-execution
+    needs: test-runner
 
     steps:
     - name: Checkout repository

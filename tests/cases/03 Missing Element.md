@@ -1,13 +1,9 @@
 ### **TCP-MEP-01: Dismissed Initial Page Validation**
 
-**Preconditions:** The user is on the Add/Remove Elements page.
+**Preconditions:** 
 
 **Test Steps:**
 1. Navigate to the Add/Remove Elements page.
-2. Verify that the current page URL contains "add_remove_elements".
-3. Verify that the page title is "Add/Remove Elements".
-4. Verify that the "Add Element" button is interactable.
-5. Verify that the "Delete" button is not present initially.
 
 **Expected Result:**
 - The page URL contains "add_remove_elements".
@@ -23,7 +19,6 @@
 
 **Test Steps:**
 1. Click on the "Add Element" button.
-2. Verify that the "Delete" button appears.
 
 **Expected Result:**
 - The "Delete" button appears after clicking "Add Element".
@@ -36,7 +31,6 @@
 
 **Test Steps:**
 1. Click on the "Delete" button.
-2. Verify that the "Delete" button disappears.
 
 **Expected Result:**
 - The "Delete" button disappears after clicking on it.

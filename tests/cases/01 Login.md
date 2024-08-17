@@ -32,11 +32,6 @@
 1. Enter "tomsmith" into the username field.
 2. Enter "SuperSecretPassword!" into the password field.
 3. Click the "Login" button.
-4. Validate that the user is redirected to a URL containing "/secure".
-5. Validate that a success toast message appears containing "You logged into".
-6. Validate that the page title is "Secure Area".
-7. Validate that the success page sub-header contains "When you are done".
-8. Validate that the "Logout" button is visible and enabled.
 
 **Expected Result:**
 - The user is redirected to a URL containing "/secure".
@@ -55,8 +50,6 @@
 1. Enter "invalid_username" into the username field.
 2. Enter "SuperSecretPassword!" into the password field.
 3. Click the "Login" button.
-4. Validate that the user remains on the login page.
-5. Validate that a failure toast message appears containing "username is invalid!".
 
 **Expected Result:**
 - The user remains on the login page.
@@ -72,8 +65,6 @@
 1. Enter "tomsmith" into the username field.
 2. Enter "invalid_password" into the password field.
 3. Click the "Login" button.
-4. Validate that the user remains on the login page.
-5. Validate that a failure toast message appears containing "password is invalid!".
 
 **Expected Result:**
 - The user remains on the login page.
@@ -89,8 +80,6 @@
 1. Enter "invalid_username" into the username field.
 2. Enter "invalid_password" into the password field.
 3. Click the "Login" button.
-4. Validate that the user remains on the login page.
-5. Validate that a failure toast message appears containing "username is invalid!".
 
 **Expected Result:**
 - The user remains on the login page.
@@ -104,8 +93,6 @@
 
 **Test Steps:**
 1. Click the "Login" button without entering credentials.
-2. Validate that the user remains on the login page.
-3. Validate that a failure toast message appears containing "username is invalid!".
 
 **Expected Result:**
 - The user remains on the login page.

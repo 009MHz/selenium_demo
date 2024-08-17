@@ -32,9 +32,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+
     - name: Run tests on ${{ matrix.browser }} browser
       run: |
         pytest ./tests --browsers=${{ matrix.browser }} --alluredir=./allure-results -n=auto --headless
+
     - name: Upload Allure results
       uses: actions/upload-artifact@v3
       with:
@@ -76,6 +78,7 @@ jobs:
         cp -r ./allure-results/chrome/* ./allure-results-merged/
         cp -r ./allure-results/firefox/* ./allure-results-merged/
         cp -r ./allure-results/edge/* ./allure-results-merged/
+
     - name: Build test report
       uses: simple-elf/allure-report-action@v1.7
       with:

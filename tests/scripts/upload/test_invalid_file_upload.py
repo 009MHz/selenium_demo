@@ -17,7 +17,7 @@ def uploader(driver):
 @allure.tag("Upload", "Failed")
 class TestFailUploadBySelect:
     @pytest.mark.ui
-    @pytest.mark.positive
+    @pytest.mark.negative
     @allure.title("No File Upload Error Validation")
     @allure.id("TCN-FUP-01")
     def test_upload_file_TCP_FUP_02(self, uploader):

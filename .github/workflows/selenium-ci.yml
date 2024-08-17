@@ -54,17 +54,30 @@ jobs:
         ref: gh-pages
         path: gh-pages
 
-    - name: Download all Allure test adresults
-      run: |
-        for browser in chrome firefox edge; do
-          mkdir -p ./allure-results/$browser
-          gh-action-download-artifact -n allure-results-$browser -p ./allure-results/$browser
-        done
+    - name: Download Allure results for Chrome
+      uses: actions/download-artifact@v3
+      with:
+        name: allure-results-chrome
+        path: ./allure-results/chrome
+
+    - name: Download Allure results for Firefox
+      uses: actions/download-artifact@v3
+      with:
+        name: allure-results-firefox
+        path: ./allure-results/firefox
+
+    - name: Download Allure results for Edge
+      uses: actions/download-artifact@v3
+      with:
+        name: allure-results-edge
+        path: ./allure-results/edge
 
     - name: Merge Allure results
       run: |
         mkdir -p ./allure-results-merged
-        cp -r ./allure-results/*/* ./allure-results-merged/
+        cp -r ./allure-results/chrome/* ./allure-results-merged/
+        cp -r ./allure-results/firefox/* ./allure-results-merged/
+        cp -r ./allure-results/edge/* ./allure-results-merged/
 
     - name: Build test report
       uses: simple-elf/allure-report-action@v1.7

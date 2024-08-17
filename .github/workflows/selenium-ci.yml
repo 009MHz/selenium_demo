@@ -13,7 +13,7 @@ permissions:
   pages: write
 
 jobs:
-  test-execution:
+  test-runner:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -54,39 +54,39 @@ jobs:
         ref: gh-pages
         path: gh-pages
 
-    - name: Download Allure results for Chrome
+    - name: Download Chrome test result
       uses: actions/download-artifact@v3
       with:
         name: allure-results-chrome
         path: ./allure-results/chrome
 
-    - name: Download Allure results for Firefox
+    - name: Download Firefox test result
       uses: actions/download-artifact@v3
       with:
         name: allure-results-firefox
         path: ./allure-results/firefox
 
-    - name: Download Allure results for Edge
+    - name: Download Edge test result
       uses: actions/download-artifact@v3
       with:
         name: allure-results-edge
         path: ./allure-results/edge
 
-    - name: Merge Allure results
+    - name: Combining all test results
       run: |
         mkdir -p ./allure-results-merged
         cp -r ./allure-results/chrome/* ./allure-results-merged/
         cp -r ./allure-results/firefox/* ./allure-results-merged/
         cp -r ./allure-results/edge/* ./allure-results-merged/
 
-    - name: Build test report
+    - name: Test report build
       uses: simple-elf/allure-report-action@v1.7
       with:
         gh_pages: gh-pages
         allure_history: allure-history
         allure_results: allure-results-merged
 
-    - name: Publish test report
+    - name: Exporting test report
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

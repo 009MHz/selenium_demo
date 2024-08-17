@@ -26,4 +26,5 @@ class TestFailUploadBySelect:
 
         with allure.step("2. Verify the Error state"):
             uploader.url_contain_keyword('upload')
-            uploader.error_page_title_match('Internal Server Error')
+            uploader.err_page_title_match('Internal Server Error')
+            uploader.err_page_file_preview_not_exist()

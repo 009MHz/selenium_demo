@@ -5,7 +5,6 @@
 2. [File Summaries](#file-summaries)
    - [`browser_config.py`](#browser_configpy)
    - [`conftest.py`](#conftestpy)
-   - [`dockerfile`](#dockerfile)
    - [`pytest.ini`](#pytestini)
    - [`requirements.txt`](#requirementstxt)
    - [`ci.yml`](#ciyml)
@@ -49,27 +48,6 @@ This file sets up the configuration for pytest, allowing customization of test r
 ```bash
 pytest --browsers=chrome --headless
 ```
-
-### `dockerfile`
-Sets up an environment for running automated tests with Selenium and pytest in a container.
-
-#### Key Steps
-1. **Base Image**: `python:3.9-slim`. *(most stable and supported version)*
-2. **Working Directory**: `/app`.
-3. **Copy Project Files**: Copies contents to `/app`.
-4. **Install System Packages**: Installs essential utilities.
-5. **Install Google Chrome**: Adds Google Chrome repository and installs Chrome.
-6. **Install Python Dependencies**: Installs required Python packages.
-7. **Install `chromedriver_autoinstaller`**: Handles ChromeDriver installation.
-8. **Run Tests**: Executes pytest on E2E test scripts with options to rerun failed tests.
-
-```dockerfile
-CMD ["pytest", "./tests/", "--reruns", "2", "--reruns-delay", "3"]
-```
-- **`pytest`**: Required commands to run the test
-- **`./tests/E2E`**: Specifies the target directory to run the test file
-- **`--reruns`**: Specifies the number of times to rerun failed tests (2 in this case).
-- **`--reruns-delay`**: Specifies the delay in seconds between reruns (5 seconds in this case).
 
 ### `pytest.ini`
 Configures pytest settings for the test automation framework.
